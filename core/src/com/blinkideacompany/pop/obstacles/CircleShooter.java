@@ -1,8 +1,5 @@
 package com.blinkideacompany.pop.obstacles;
 
-import android.graphics.Canvas;
-import android.graphics.Paint;
-
 import com.blinkideacompany.pop.Player;
 
 /**
@@ -22,8 +19,8 @@ public class CircleShooter extends Obstacle {
             int y = (int)(Math.sin((2*Math.PI/numShooters)*i)*distanceFromPlayer) + player.x;
             parts.add(new Part(3, 0, Part.TYPE_POLY, x, y));
         }
-        paint.setARGB(255, 255, 0, 0);
-        paint.setStyle(Paint.Style.FILL);
+//        paint.setARGB(255, 255, 0, 0);
+//        paint.setStyle(Paint.Style.FILL);
     }
 
     @Override
@@ -63,10 +60,10 @@ public class CircleShooter extends Obstacle {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw() {
         //draw shooters
         for(int i = 0; i< numShooters; i++){
-            parts.get(i).draw(canvas, paint);
+            parts.get(i).draw();
         }
     }
 }

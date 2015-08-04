@@ -1,11 +1,5 @@
 package com.blinkideacompany.pop.obstacles;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.util.Log;
-
 import com.blinkideacompany.pop.Player;
 
 /**
@@ -13,8 +7,7 @@ import com.blinkideacompany.pop.Player;
  */
 public class Sniper extends Obstacle {
 
-    Console console;
-    Point sniperPoint = null;
+
 
     public Sniper(Player p, int w, int h) {
         super(p, w, h);
@@ -22,16 +15,14 @@ public class Sniper extends Obstacle {
         int x, y;
         x = y = 0;
 
-        console.println(screenHeight+","+screenWidth);
 
-
-        Point point = randPoint(p);
-        sniperPoint = point;
-
-
-        parts.add(new Part(1, (int) (screenWidth * .1), Part.TYPE_CIRCLE, point.x, point.y));
-        paint.setColor(Color.GREEN);
-        paint.setStyle(Paint.Style.FILL);
+//        Point point = randPoint(p);
+//        sniperPoint = point;
+//
+//
+//        parts.add(new Part(1, (int) (screenWidth * .1), Part.TYPE_CIRCLE, point.x, point.y));
+//        paint.setColor(Color.GREEN);
+//        paint.setStyle(Paint.Style.FILL);
 
     }
 
@@ -42,7 +33,7 @@ public class Sniper extends Obstacle {
 
     @Override
     public boolean update() {
-        console.println("sniper is here");
+
         parts.get(0).translateX((int) (screenWidth * .01));
         if (parts.get(0).center.y > screenHeight / 2 && parts.get(1).center.y < screenHeight / 2)
             finished = true;
@@ -50,14 +41,14 @@ public class Sniper extends Obstacle {
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        Log.i("sniperPos", sniperPoint.x + "," + sniperPoint.y);
-        parts.get(0).draw(canvas, paint);
+    public void draw() {
+
+        parts.get(0).draw();
     }
 
-    private Point randPoint(Player p) {
-        int x = (int) Math.random() * (screenWidth / 5) + p.x;
-        int y = (int) Math.random() * (screenHeight / 5) + p.y;
-        return new Point(x, y);
-    }
+//    private Point randPoint(Player p) {
+//        int x = (int) Math.random() * (screenWidth / 5) + p.x;
+//        int y = (int) Math.random() * (screenHeight / 5) + p.y;
+//        return new Point(x, y);
+//    }
 }

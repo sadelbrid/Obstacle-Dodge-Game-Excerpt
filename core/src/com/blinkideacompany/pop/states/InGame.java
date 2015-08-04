@@ -1,51 +1,35 @@
 package com.blinkideacompany.pop.states;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
-import android.view.View;
 
 import com.blinkideacompany.pop.JoyStick;
-import com.blinkideacompany.pop.obstacles.ObstacleManager;
+import com.blinkideacompany.pop.Main;
 import com.blinkideacompany.pop.Player;
+import com.blinkideacompany.pop.obstacles.ObstacleManager;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 
-public class InGame extends Activity {
-    public int canvasWidth;
-    public int canvasHeight;
-    Paint paint;
-    //custom class for debugging console messages
-    Console console;
+public class InGame extends State {
 
-    private boolean gameStarted = false;
+    private boolean gameStarted;
 
     public InGame() {
-        paint = new Paint();
-        paint.setAntiAlias(true);
+        gameStarted = false;
     }
-
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(new MainScene(this));
+    public void draw() {
+
     }
 
 
-    public class MainScene extends View {
+    public class MainScene {
         public Player player1;
-        int WIDTH = this.getResources().getDisplayMetrics().widthPixels;
-        int HEIGHT = this.getResources().getDisplayMetrics().heightPixels;
-        Console console = new Console();
+
         Timer logicTimer;
-        Runnable mainUpdate;
-        Runnable countdownTask;
+        TimerTask mainUpdate;
+        TimerTask countdownTask;
 
         float centerHeightOfJoystick;
         float centerWidthOfJoystick;
@@ -61,17 +45,17 @@ public class InGame extends Activity {
         boolean isInGame;
         String countdownOutput;
         boolean touchInBounds;
-        boolean touching=false;
+        boolean touching = false;
 
         JoyStick joyStick = new JoyStick(player1, 0, 0);
         int radiusOfJoystick = joyStick.radius;
 
         ObstacleManager obstacleManager;
 
-        public MainScene(Context context) {
-            super(context);
-            player1 = new Player(WIDTH, HEIGHT);
-            obstacleManager = new ObstacleManager(player1, WIDTH, HEIGHT);
+        public MainScene() {
+
+            player1 = new Player(Main.WIDTH, Main.HEIGHT);
+            obstacleManager = new ObstacleManager(player1, Main.WIDTH, Main.HEIGHT);
             isCounting = true;
             isInGame = false;
             countdownCount = 4;
@@ -79,8 +63,9 @@ public class InGame extends Activity {
             countdownSize = 100;
             countdownAlpha = 255;
             //Setup timers
-            final Handler handleUpdate=new Handler();
-            mainUpdate = new Runnable() {
+            final Timer handleUpdate = new Timer();
+            mainUpdate = new TimerTask() {
+
                 @Override
                 public void run() {
                     //Main logic update to be done
@@ -93,18 +78,18 @@ public class InGame extends Activity {
                         player1.update();
                         obstacleManager.update();
                     }
-                    handleUpdate.postDelayed(this,20);
+
                 }
 
             };
 
+            handleUpdate.scheduleAtFixedRate(mainUpdate, 0, 20);
 
 
+            final Timer handleCountdown = new Timer();
 
-            final Handler handleCountdown=new Handler();
 
-
-            countdownTask = new Runnable() {
+            countdownTask = new TimerTask() {
                 @Override
                 public void run() {
                     countdownSize = 100;
@@ -119,30 +104,21 @@ public class InGame extends Activity {
                         isInGame = true;
                         //game started bool
                         gameStarted = true;
-                        handleCountdown.removeCallbacks(this);
+                        countdownTask.cancel();
                     }
-                    handleCountdown.postDelayed(this,1000);
+
                 }
             };
+            handleCountdown.scheduleAtFixedRate(countdownTask, 0, 1000);
 
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                    handleCountdown.postDelayed(countdownTask,1000);
-                    handleUpdate.postDelayed(mainUpdate,20);
-                }
-            });
-
-
-
+            handleUpdate.scheduleAtFixedRate(mainUpdate, 0, 20);
 
 
         }
 
-        @Override
-        public boolean onTouchEvent(MotionEvent event) {
-            player1.updateTouch(event);
+
+        //public boolean onTouchEvent(MotionEvent event) {
+        //player1.updateTouch(event);
 //            //getting coordinates of touch events
 //            float xTouch = event.getX();
 //            float yTouch = event.getY();
@@ -168,27 +144,27 @@ public class InGame extends Activity {
 //                touching=false;
 //
 //            }
-            //refer to getwidth()/2 and  getHeight() as the center of the joystick radius
-            return true;
-        }
+//            //refer to getwidth()/2 and  getHeight() as the center of the joystick radius
+//            return true;
+//        }
 
-        @Override
-        protected void onDraw(Canvas canvas) {
+
+        public void draw() {
             //Draw
             if (isCounting) {
-                Countdown.draw(canvas, countdownOutput, countdownAlpha, countdownSize, WIDTH, HEIGHT);
+                //Countdown.draw();
             }
 
             if (gameStarted) {
                 //drawBoundary(canvas);
-                canvas.drawCircle(player1.x, player1.y, player1.size, paint);
-                obstacleManager.draw(canvas);
-                //joyStick.draw(canvas);
-                player1.joyStick.draw(canvas);
-                //draw joystrick travel point
+//                canvas.drawCircle(player1.x, player1.y, player1.size, paint);
+//                obstacleManager.draw(canvas);
+//                //joyStick.draw(canvas);
+//                player1.joyStick.draw(canvas);
+                //draw joystick travel point
 
             }
-            invalidate();
+            //invalidate();
         }
 
     }

@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.GridPoint2;
  */
 public class JoyStick implements InputProcessor {
     int x, y;
-    int radius;
+    public int radius;
     int screenWidth, screenHeight;
     int maxSpeed;
     double acceleration;

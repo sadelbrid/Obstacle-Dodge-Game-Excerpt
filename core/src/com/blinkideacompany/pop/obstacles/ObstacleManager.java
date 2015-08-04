@@ -1,10 +1,6 @@
 package com.blinkideacompany.pop.obstacles;
 
-import android.graphics.Canvas;
-
 import com.blinkideacompany.pop.Player;
-import com.blinkideacompany.pop.obstacles.FallingBar;
-import com.blinkideacompany.pop.obstacles.Obstacle;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -19,7 +15,7 @@ public class ObstacleManager {
     int screenWidth, screenHeight;
     boolean readyToAdd;
     public ObstacleManager(Player p, int w, int h) {
-        obstacles = new ArrayList<>();
+        obstacles = new ArrayList<Obstacle>();
         player = p;
         screenWidth = w;
         screenHeight = h;
@@ -49,9 +45,9 @@ public class ObstacleManager {
         if(newObstacle != null) obstacles.add(newObstacle);
     }
 
-    public void draw(Canvas canvas) {
+    public void draw() {
         for(int i = 0; i<obstacles.size(); i++){
-            obstacles.get(i).draw(canvas);
+            obstacles.get(i).draw();
         }
     }
 

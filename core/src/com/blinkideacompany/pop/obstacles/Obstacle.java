@@ -1,8 +1,5 @@
 package com.blinkideacompany.pop.obstacles;
 
-import android.graphics.Canvas;
-import android.graphics.Paint;
-
 import com.blinkideacompany.pop.Player;
 
 import java.util.ArrayList;
@@ -13,7 +10,7 @@ import java.util.ArrayList;
 public abstract class Obstacle {
     ArrayList<Part> parts;
     Player player;
-    Paint paint;
+
     boolean finished;
     int screenWidth;
     int screenHeight;
@@ -23,7 +20,7 @@ public abstract class Obstacle {
         screenWidth = w;
         screenHeight = h;
         parts = new ArrayList<Part>();
-        paint = new Paint();
+
         finished = false;
     }
 

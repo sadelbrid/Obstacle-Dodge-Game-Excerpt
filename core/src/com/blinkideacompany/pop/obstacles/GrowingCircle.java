@@ -1,9 +1,5 @@
 package com.blinkideacompany.pop.obstacles;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-
 import com.blinkideacompany.pop.Player;
 
 /**
@@ -41,15 +37,15 @@ public class GrowingCircle extends Obstacle {
             ySpawn=p.x;
         }
 
-        parts.add(new Part(1, 1, Part.TYPE_CIRCLE, xSpawn,ySpawn));
-        paint = new Paint();
-        paint.setColor(Color.BLUE);
-        paint.setAntiAlias(true);
+        parts.add(new Part(1, 1, Part.TYPE_CIRCLE, xSpawn, ySpawn));
+//        paint = new Paint();
+//        paint.setColor(Color.BLUE);
+//        paint.setAntiAlias(true);
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        parts.get(0).draw(canvas, paint);
+    public void draw() {
+        parts.get(0).draw();
     }
 
     @Override
@@ -58,5 +54,6 @@ public class GrowingCircle extends Obstacle {
         if (parts.get(0).radius >= screenWidth * .85) finished = true;
         return parts.get(0).contains(player.x, player.y);
     }
+
 
 }

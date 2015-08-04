@@ -1,9 +1,5 @@
 package com.blinkideacompany.pop.obstacles;
 
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Path;
-
 import java.util.ArrayList;
 
 /**
@@ -17,14 +13,13 @@ public class Part {
     public int radius;
     public int type;
     public double rotation;
-    public Path path;
     public ArrayList<Point> rep;
     int x_vel, y_vel;
     Point center;
 
     //number of points, radius, type of part, intial x, intial y
     public Part(int numPoints, int r, int t, int init_x, int init_y) {
-        rep = new ArrayList<>();
+        rep = new ArrayList<Point>();
         int xAverage = 0, yAverage = 0;
         x_vel = y_vel = 0;
         this.radius = r;
@@ -39,10 +34,9 @@ public class Part {
         }
 
         center = new Point(xAverage/numPoints, yAverage/numPoints);
-        path = new Path();
     }
     public Part(ArrayList<Point> points) {
-        rep = new ArrayList<>();
+        rep = new ArrayList<Point>();
         int numPoints = points.size();
         int xAverage = 0, yAverage = 0;
         x_vel = y_vel = 0;
@@ -54,7 +48,7 @@ public class Part {
             rep.add(points.remove(0));
         }
         center = new Point(xAverage/numPoints, yAverage/numPoints);
-        path = new Path();
+
     }
 
     public boolean contains(int x, int y) {
@@ -84,21 +78,23 @@ public class Part {
         }
     }
 
-    public void draw(Canvas canvas, Paint paint){
+    public void draw() {
 
-        path.reset();
-        if (rep.size() > 1 && rep.size() != 0) {
-            path.moveTo(rep.get(0).x, rep.get(0).y);
-            for(int i = 1; i < rep.size(); i++){
-                path.lineTo(rep.get(i).x, rep.get(i).y);
-            }
-            path.lineTo(rep.get(0).x, rep.get(0).y);
-            path.close();
-            canvas.drawPath(path, paint);
-        }
-        else if(type == TYPE_CIRCLE){
-            canvas.drawCircle(center.x, center.y, radius, paint);
-        }
+//        path.reset();
+//        if (rep.size() > 1 && rep.size() != 0) {
+//            path.moveTo(rep.get(0).x, rep.get(0).y);
+//            for(int i = 1; i < rep.size(); i++){
+//                path.lineTo(rep.get(i).x, rep.get(i).y);
+//            }
+//            path.lineTo(rep.get(0).x, rep.get(0).y);
+//            path.close();
+//            canvas.drawPath(path, paint);
+//        }
+//        else if(type == TYPE_CIRCLE){
+//            canvas.drawCircle(center.x, center.y, radius, paint);
+//        }
+
+
     }
 
     public void translateX(int dX) {

@@ -1,15 +1,16 @@
 package com.blinkideacompany.pop;
 
 
+import com.badlogic.gdx.InputProcessor;
+
 /**
  * Created by dgallagher on 6/26/15.
  */
-public class Player {
-    public int x, y;
-    double x_vel, y_vel;
+public class Player implements InputProcessor {
+    public int x, y, size;
+    public double x_vel, y_vel;
     int screenWidth, screenHeight;
     double screenRatio;
-    int size;
     JoyStick joyStick;
     public Player(int w, int h){
         screenWidth = w;
@@ -61,32 +62,59 @@ public class Player {
             }
         }
 
-    public void updateTouch(MotionEvent event){
-        /*
-        sin(theta) = x/h
-        theta = atan(x/y)
-         */
-        switch (event.getAction()){
-            case  MotionEvent.ACTION_MOVE:
 
-                double deltaX = event.getX() - joyStick.x;
-                double deltaY = event.getY() - joyStick.y;
-                if(Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) > screenWidth*.05){
-                    joyStick.touching = true;
-                    joyStick.angle = Math.atan2(deltaY, deltaX);
-                    if(event.getY() < joyStick.y){
-                        joyStick.angle*=-1;
-                    }
-                    else{
-                        joyStick.angle = 2*Math.PI - joyStick.angle;
-                    }
-                    joyStick.calculateTravelPoint();
-                }
-                else joyStick.touching = false;
-                break;
-            case MotionEvent.ACTION_UP:
-                joyStick.touching = false;
-                break;
-        }
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        double deltaX = screenX - joyStick.x;
+        double deltaY = screenY - joyStick.y;
+        if (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) > screenWidth * .05) {
+            joyStick.touching = true;
+            joyStick.angle = Math.atan2(deltaY, deltaX);
+            if (screenY < joyStick.y) {
+                joyStick.angle *= -1;
+            } else {
+                joyStick.angle = 2 * Math.PI - joyStick.angle;
+            }
+            joyStick.calculateTravelPoint();
+        } else joyStick.touching = false;
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        joyStick.touching = false;
+
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }

@@ -1,8 +1,5 @@
 package com.blinkideacompany.pop.obstacles;
 
-import android.graphics.Canvas;
-import android.graphics.Paint;
-
 import com.blinkideacompany.pop.Player;
 
 /**
@@ -13,8 +10,8 @@ public class SimpleBoxDodge extends Obstacle {
         super(p, w, h);
         parts.add(new Part(4, (int) (screenWidth * .1), Part.TYPE_POLY, screenWidth / 2, 0));
         parts.add(new Part(4, (int) (screenWidth * .1), Part.TYPE_POLY, screenWidth / 2, screenHeight));
-        paint.setARGB(255, 255, 0, 0);
-        paint.setStyle(Paint.Style.FILL);
+//        paint.setARGB(255, 255, 0, 0);
+//        paint.setStyle(Paint.Style.FILL);
     }
 
     @Override
@@ -31,9 +28,9 @@ public class SimpleBoxDodge extends Obstacle {
 
 
     @Override
-    public void draw(Canvas canvas){
-        parts.get(0).draw(canvas, paint);
-        parts.get(1).draw(canvas, paint);
+    public void draw() {
+//        parts.get(0).draw(canvas, paint);
+//        parts.get(1).draw(canvas, paint);
         
     }
 }

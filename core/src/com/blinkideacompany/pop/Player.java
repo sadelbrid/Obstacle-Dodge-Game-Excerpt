@@ -6,7 +6,7 @@ import android.view.MotionEvent;
  * Created by dgallagher on 6/26/15.
  */
 public class Player {
-    int x, y;
+    public int x, y;
     double x_vel, y_vel;
     int screenWidth, screenHeight;
     double screenRatio;

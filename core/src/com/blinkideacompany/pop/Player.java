@@ -1,6 +1,5 @@
 package com.blinkideacompany.pop;
 
-import android.view.MotionEvent;
 
 /**
  * Created by dgallagher on 6/26/15.

@@ -17,7 +17,7 @@ allprojects {
 
     version = '1.0'
     ext {
-        appName = 'Pop'
+        appName = 'my-gdx-game'
         gdxVersion = '1.6.4'
         roboVMVersion = '1.5.0'
         box2DLightsVersion = '1.4'
@@ -89,6 +89,10 @@ project(":html") {
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion:sources"
         compile "com.badlogicgames.gdx:gdx-box2d-gwt:$gdxVersion:sources"
+        compile "com.kotcrab.vis:vis-ui:0.7.7:sources"
+        compile "net.dermetfan.libgdx-utils:libgdx-utils:0.13.0:sources"
+        compile "net.dermetfan.libgdx-utils:libgdx-utils:0.13.0:sources"
+        compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:0.13.0:sources"
     }
 }
 
@@ -99,6 +103,10 @@ project(":core") {
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        compile "com.underwaterapps.overlap2druntime:overlap2d-runtime-libgdx:0.1.0"
+        compile "com.kotcrab.vis:vis-ui:0.7.7"
+        compile "net.dermetfan.libgdx-utils:libgdx-utils:0.13.0"
+        compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:0.13.0"
     }
 }
 

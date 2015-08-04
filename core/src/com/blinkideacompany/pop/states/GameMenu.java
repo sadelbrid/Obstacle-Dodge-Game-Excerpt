@@ -2,7 +2,8 @@ package com.blinkideacompany.pop.states;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.blinkideacompany.pop.Main;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.MyGdxGame;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,10 +14,7 @@ public class GameMenu extends State implements InputProcessor{
     public boolean gameStarted=false;
     BitmapFont font;
 
-    @Override
-    public void draw() {
 
-    }
 
     @Override
     public boolean keyDown(int keycode) {
@@ -46,15 +44,15 @@ public class GameMenu extends State implements InputProcessor{
             float yTouchPos = screenY;
 
             //Check to see if first button hit
-            if (xTouchPos >= (Main.WIDTH * 2.0 / 5.0) && xTouchPos <= (Main.WIDTH * 4.0 / 5.0)
-                    && yTouchPos >= (Main.HEIGHT * 6.0 / 10.0) && yTouchPos <= (Main.HEIGHT * 7.0 / 10.0)) {
+            if (xTouchPos >= (MyGdxGame.WIDTH * 2.0 / 5.0) && xTouchPos <= (MyGdxGame.WIDTH * 4.0 / 5.0)
+                    && yTouchPos >= (MyGdxGame.HEIGHT * 6.0 / 10.0) && yTouchPos <= (MyGdxGame.HEIGHT * 7.0 / 10.0)) {
                 //toGameScreen();
 
             }
 
             //Check to see if second button hit
-            if (xTouchPos >= (Main.WIDTH * 2.0 / 5.0) && xTouchPos <= (Main.WIDTH * 4.0 / 5.0)
-                    && yTouchPos >= (Main.HEIGHT * 3.0 / 10.0) && yTouchPos <= (Main.HEIGHT * 4.0 / 10.0)) {
+            if (xTouchPos >= (MyGdxGame.WIDTH * 2.0 / 5.0) && xTouchPos <= (MyGdxGame.WIDTH * 4.0 / 5.0)
+                    && yTouchPos >= (MyGdxGame.HEIGHT * 3.0 / 10.0) && yTouchPos <= (MyGdxGame.HEIGHT * 4.0 / 10.0)) {
 
             }
 
@@ -87,6 +85,11 @@ public class GameMenu extends State implements InputProcessor{
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+    @Override
+    public void draw(ShapeRenderer s) {
+
     }
 
 

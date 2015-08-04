@@ -1,10 +1,11 @@
 package com.blinkideacompany.pop.states;
 
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blinkideacompany.pop.JoyStick;
-import com.blinkideacompany.pop.Main;
 import com.blinkideacompany.pop.Player;
 import com.blinkideacompany.pop.obstacles.ObstacleManager;
+import com.mygdx.game.MyGdxGame;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,8 +19,10 @@ public class InGame extends State {
         gameStarted = false;
     }
 
+
+
     @Override
-    public void draw() {
+    public void draw(ShapeRenderer s) {
 
     }
 
@@ -54,8 +57,8 @@ public class InGame extends State {
 
         public MainScene() {
 
-            player1 = new Player(Main.WIDTH, Main.HEIGHT);
-            obstacleManager = new ObstacleManager(player1, Main.WIDTH, Main.HEIGHT);
+            player1 = new Player(MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
+            obstacleManager = new ObstacleManager(player1, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
             isCounting = true;
             isInGame = false;
             countdownCount = 4;

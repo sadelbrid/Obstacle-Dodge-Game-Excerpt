@@ -1,9 +1,10 @@
 package com.blinkideacompany.pop.states;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,7 +37,11 @@ public class SplashScreen extends State {
 
     @Override
     public void draw(ShapeRenderer s) {
-        Label.LabelStyle ls = new Label.LabelStyle();
+
+        Texture t=new Texture("badlogic.jpg");
+        batch.begin();
+        batch.draw(t, Gdx.graphics.getWidth()/2-t.getWidth()/2,Gdx.graphics.getHeight()/2-t.getHeight()/2);
+        batch.end();
 
 
     }

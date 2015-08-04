@@ -20,7 +20,6 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
         gsm=new GameStateManager();
         gsm.changeState(new SplashScreen());
 	}

@@ -89,6 +89,14 @@ public class GameMenu extends State implements InputProcessor{
 
     @Override
     public void draw(ShapeRenderer s) {
+        s.begin(ShapeRenderer.ShapeType.Filled);
+        s.setColor(com.badlogic.gdx.graphics.Color.BLACK);
+        s.circle(100,100,100);
+        s.end();
+    }
+
+    @Override
+    public void update() {
 
     }
 

@@ -26,6 +26,11 @@ public class InGame extends State {
 
     }
 
+    @Override
+    public void update() {
+
+    }
+
 
     public class MainScene {
         public Player player1;

@@ -8,7 +8,9 @@ import java.util.Stack;
 public class GameStateManager {
 
     Stack<State> state;
+    public int currentStateVal;
     public State currentState;
+
 
     public void changeState(State state){
         currentState=state;

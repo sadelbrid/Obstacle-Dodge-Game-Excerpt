@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class SplashScreen extends State {
     /** Duration of wait **/
@@ -16,22 +15,15 @@ public class SplashScreen extends State {
     private GameStateManager gsm;
     private BitmapFont font;
     private SpriteBatch batch;
+    public ShapeRenderer s;
 
 
     public SplashScreen() {
-        Timer t=new Timer();
+        t=new Timer();
         //specify custom font from interal files
-
+        s=new ShapeRenderer();
         batch = new SpriteBatch();
-
         gsm=new GameStateManager();
-        t.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                gsm.changeState(new GameMenu());
-            }
-        }, SPLASH_DISPLAY_LENGTH);
-
 
     }
 
@@ -43,6 +35,18 @@ public class SplashScreen extends State {
         batch.draw(t, Gdx.graphics.getWidth()/2-t.getWidth()/2,Gdx.graphics.getHeight()/2-t.getHeight()/2);
         batch.end();
 
+
+    }
+
+    @Override
+    public void update() {
+        try {
+            Thread.sleep(2000);
+            gsm.changeState(new GameMenu());
+        }
+        catch(Exception e){
+
+        }
 
     }
 }

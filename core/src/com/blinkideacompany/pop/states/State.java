@@ -7,5 +7,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  */
 public abstract class State {
 
+    public String name;
+
     public abstract void draw(ShapeRenderer s);
+
+    public abstract void update();
 }

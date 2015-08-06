@@ -1,5 +1,6 @@
 package com.blinkideacompany.pop.obstacles;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blinkideacompany.pop.Player;
 
 /**
@@ -9,8 +10,8 @@ public class Sniper extends Obstacle {
 
 
 
-    public Sniper(Player p, int w, int h) {
-        super(p, w, h);
+    public Sniper(Player p, int w, int h, Obstacle ongoing) {
+        super(p, w, h, ongoing);
 
         int x, y;
         x = y = 0;
@@ -32,7 +33,7 @@ public class Sniper extends Obstacle {
     }
 
     @Override
-    public boolean update() {
+    public boolean update(float dt) {
 
         parts.get(0).translateX((int) (screenWidth * .01));
         if (parts.get(0).center.y > screenHeight / 2 && parts.get(1).center.y < screenHeight / 2)
@@ -41,9 +42,8 @@ public class Sniper extends Obstacle {
     }
 
     @Override
-    public void draw() {
-
-        parts.get(0).draw();
+    public void draw(ShapeRenderer s) {
+        parts.get(0).draw(s, color);
     }
 
 //    private Point randPoint(Player p) {

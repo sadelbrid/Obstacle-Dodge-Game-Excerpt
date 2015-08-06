@@ -1,6 +1,7 @@
 package com.blinkideacompany.pop.obstacles;
 
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blinkideacompany.pop.Player;
 
 import java.util.ArrayList;
@@ -10,30 +11,26 @@ import java.util.ArrayList;
  */
 public class FallingBar extends Obstacle {
 
-    public FallingBar(Player p, int w, int h) {
-        super(p, w, h);
-
-
+    public FallingBar(Player p, int w, int h, Obstacle ongoing) {
+        super(p, w, h, ongoing);
         ArrayList<Part.Point> points = new ArrayList<Part.Point>();
         points.add(new Part.Point((int) (w * .2), (int) (h * .1)));
         points.add(new Part.Point((int) (w * .8), (int) (h * .1)));
         points.add(new Part.Point((int) (w * .8), (int) (h * .2)));
         points.add(new Part.Point((int) (w * .2), (int) (h * .2)));
-
         parts.add(new Part(points));
-
     }
 
     @Override
-    public void draw() {
-        parts.get(0).draw();
+    public void draw(ShapeRenderer s) {
+        parts.get(0).draw(s, this.color);
     }
 
     int rotatedBy = 0;
     double rotationConstant = .05;
 
     @Override
-    public boolean update() {
+    public boolean update(float dt) {
 
         parts.get(0).rotate(Math.PI/2);
 

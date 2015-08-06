@@ -1,4 +1,5 @@
 package com.blinkideacompany.pop.states;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blinkideacompany.pop.JoyStick;
@@ -6,44 +7,41 @@ import com.blinkideacompany.pop.Player;
 import com.blinkideacompany.pop.obstacles.ObstacleManager;
 import com.mygdx.game.MyGdxGame;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class InGame extends State {
     private boolean gameStarted;
+    private ShapeRenderer shapeRenderer;
     ObstacleManager obstacleManager;
     Player player;
     float countdown;
-    public InGame(GameStateManager gsm) {
+    public InGame(GameStateManager gsm, ShapeRenderer sr) {
         super(gsm);
+        shapeRenderer =sr;
         gameStarted = false;
-        obstacleManager = new ObstacleManager(player, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
+        obstacleManager = new ObstacleManager(player, shapeRenderer, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
         countdown = 4;
+        player = new Player(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     @Override
-    public void draw(ShapeRenderer s) {
-
-    }
-
-    @Override
-    public void update(float dt) {
+    public void update(float dt, ShapeRenderer s) {
         if(!gameStarted) countdown -= dt;
         gameStarted = countdown < 1.0f;
         if(gameStarted) {
             player.update();
-            obstacleManager.update();
+            obstacleManager.update(dt);
         }
     }
 
     @Override
-    public void handleInput(){
+    public void handleInput(ShapeRenderer s){
 
     }
 
     @Override
     public void render(SpriteBatch sb){
-
+        if(gameStarted){
+            obstacleManager.draw(shapeRenderer);
+        }
     }
 
     @Override

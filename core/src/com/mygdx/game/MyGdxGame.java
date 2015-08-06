@@ -15,6 +15,7 @@ import java.util.TimerTask;
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
+	private ShapeRenderer shapeRenderer;
 	public ShapeRenderer s;
 	private GameStateManager gsm;
 	public static final int HEIGHT = 600;
@@ -24,6 +25,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		shapeRenderer = new ShapeRenderer();
 		gsm = new GameStateManager();
 		s=new ShapeRenderer();
 		gsm.push(new SplashScreen(gsm));
@@ -33,7 +35,7 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void render () {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		gsm.update(Gdx.graphics.getDeltaTime());
+		gsm.update(Gdx.graphics.getDeltaTime(), shapeRenderer);
 		gsm.render(batch);
 	}
 }

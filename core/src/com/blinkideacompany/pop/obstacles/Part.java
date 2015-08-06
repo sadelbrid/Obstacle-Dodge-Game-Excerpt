@@ -1,5 +1,8 @@
 package com.blinkideacompany.pop.obstacles;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 import java.util.ArrayList;
 
 /**
@@ -13,13 +16,16 @@ public class Part {
     public int radius;
     public int type;
     public double rotation;
-    public ArrayList<Point> rep;
-    int x_vel, y_vel;
+    public float[] rep;
+    int numPoints;
+    double x_vel, y_vel;
     Point center;
+    public Color color;
 
     //number of points, radius, type of part, intial x, intial y
-    public Part(int numPoints, int r, int t, int init_x, int init_y) {
-        rep = new ArrayList<Point>();
+    public Part(int numPoints, int r, int t, double init_x, double init_y) {
+        this.numPoints = numPoints;
+        rep = new float[numPoints*2];
         int xAverage = 0, yAverage = 0;
         x_vel = y_vel = 0;
         this.radius = r;
@@ -28,7 +34,9 @@ public class Part {
         for(int i = 0; i< numPoints; i++){
             double x_pos = Math.cos((2.0*Math.PI/numPoints)*i)*radius + init_x;
             double y_pos = Math.sin((2.0*Math.PI/numPoints)*i)*radius + init_y;
-            rep.add(new Point((int)x_pos, (int)y_pos));
+            //rep.add(new Point((int)x_pos, (int)y_pos));
+            rep[i*2] = (int)x_pos;
+            rep[i*2+1] = (int)y_pos;
             xAverage += (int)x_pos;
             yAverage += (int)y_pos;
         }
@@ -36,27 +44,32 @@ public class Part {
         center = new Point(xAverage/numPoints, yAverage/numPoints);
     }
     public Part(ArrayList<Point> points) {
-        rep = new ArrayList<Point>();
-        int numPoints = points.size();
+        rep = new float[points.size()*2];
+        this.numPoints = points.size();
         int xAverage = 0, yAverage = 0;
         x_vel = y_vel = 0;
         this.type = TYPE_CUSTOM;
         this.rotation = 0;
-        while(points.size() > 0){
-            xAverage += points.get(0).x;
-            yAverage += points.get(0).y;
-            rep.add(points.remove(0));
+        for(int i =0; i<numPoints; i++){
+            Point p = points.remove(0);
+            xAverage += p.x;
+            yAverage += p.y;
+            rep[2*i] = (float)p.x;
+            rep[2*i+1] = (float)p.y;
         }
         center = new Point(xAverage/numPoints, yAverage/numPoints);
+    }
 
+    public void setColor(Color c){
+        this.color.set(c);
     }
 
     public boolean contains(int x, int y) {
         if(this.type != TYPE_CIRCLE) {
             int i, j, count = 0;
-            for (i = 0, j = rep.size() - 1; i < rep.size(); j = i++) {
-                if (((rep.get(i).y > y) != (rep.get(j).y > y)) &&
-                        (x < (rep.get(j).x - rep.get(i).x) * (y - rep.get(i).y) / (rep.get(j).y - rep.get(i).y) + rep.get(i).x)) {
+            for (i = 0, j = numPoints - 1; i < numPoints; j = i++) {
+                if (((rep[2*i+1] > y) != (rep[2*j+1] > y)) &&
+                        (x < (rep[2*j] - rep[2*i]) * (y - rep[2*i+1]) / (rep[2*j+1] - rep[2*i+1]) + rep[2*i])) {
                     count++;
                 }
             }
@@ -64,7 +77,7 @@ public class Part {
             return count % 2 != 0;
         }
         else{
-            double distance = Math.abs(Math.sqrt(Math.pow(x - rep.get(0).x, 2) + Math.pow(y - rep.get(0).y, 2)));
+            double distance = Math.abs(Math.sqrt(Math.pow(x - rep[0], 2) + Math.pow(y - rep[1], 2)));
             return distance <= this.radius;
         }
     }
@@ -72,14 +85,18 @@ public class Part {
     public void update() {
         center.x += x_vel;
         center.y += y_vel;
-        for(int i = 0; i < rep.size(); i++){
-            rep.get(i).x += x_vel;
-            rep.get(i).y += y_vel;
+        for(int i = 0; i < numPoints; i++){
+            rep[2*i] += x_vel;
+            rep[2*i+1] += y_vel;
         }
     }
 
-    public void draw() {
-
+    public void draw(ShapeRenderer s, Color c) {
+        s.begin(ShapeRenderer.ShapeType.Filled);
+        s.setColor(c);
+        if(type != TYPE_CIRCLE) s.polygon(rep);
+        else{}
+        s.end();
 //        path.reset();
 //        if (rep.size() > 1 && rep.size() != 0) {
 //            path.moveTo(rep.get(0).x, rep.get(0).y);
@@ -93,14 +110,12 @@ public class Part {
 //        else if(type == TYPE_CIRCLE){
 //            canvas.drawCircle(center.x, center.y, radius, paint);
 //        }
-
-
     }
 
     public void translateX(int dX) {
         center.x += dX;
-        for (int i = 0; i < rep.size(); i++)
-            rep.get(i).x += dX;
+        for (int i = 0; i < numPoints; i++)
+            rep[2*i] += dX;
     }
 
     /*
@@ -109,14 +124,14 @@ public class Part {
 
     public void translateY(int dY){
         center.y += dY;
-        for(int i = 0; i < rep.size(); i++)
-            rep.get(i).y += dY;
+        for(int i = 0; i < numPoints; i++)
+            rep[2*i+1] += dY;
     }
 
     public void translateXY(int dX, int dY){
-        for(int i = 0; i < rep.size(); i++) {
-            rep.get(i).x += dX;
-            rep.get(i).y += dY;
+        for(int i = 0; i < numPoints; i++) {
+            rep[2*i] += dX;
+            rep[2*i+1] += dY;
         }
         center.x += dX;
         center.y += dY;
@@ -129,46 +144,46 @@ public class Part {
          */
         int dX = (int)(Math.cos(angleRad)*amount);
         int dY = (int)(Math.sin(angleRad)*amount);
-        for(int i = 0; i < rep.size(); i++) {
-            rep.get(i).x += dX;
-            rep.get(i).y += dY;
+        for(int i = 0; i < numPoints; i++) {
+            rep[2*i] += dX;
+            rep[2*i+1] += dY;
         }
         center.x += dX;
         center.y += dY;
     }
 
     public void rotate(double angleRad) {
-        rotation += angleRad;
-        if (rotation >= Math.PI * 4) rotation -= Math.PI * 4;
-        if (type == TYPE_POLY) {
-            int numPoints = rep.size();
-            rep.clear();
-            for (int i = 0; i < numPoints; i++) {
-                double x_pos = Math.cos(((2.0 * Math.PI / numPoints) * i) + rotation) * radius + center.x;
-                double y_pos = Math.sin(((2.0 * Math.PI / numPoints) * i) + rotation) * radius + center.y;
-                rep.add(new Point((int) x_pos, (int) y_pos));
-                //xAverage += (int)x_pos;
-                //yAverage += (int)y_pos;
-            }
-        } else {
-
-        }
+        rotateAboutPoint(this.center.x, this.center.y, angleRad);
     }
+
+    public void rotateAboutPoint(double x, double y, double angleRad){
+        rotation += angleRad;
+        if(rotation >= Math.PI*4) rotation -= Math.PI*4;
+        for(int i = 0; i<numPoints; i++){
+            double temp = (Math.cos(angleRad) * (rep[2*i] - x) - Math.sin(angleRad)*(rep[2*i+1] - y) + x);
+            rep[2*i+1] = (float)(Math.sin(angleRad) * (rep[2*i] - x) + Math.cos(angleRad)*(rep[2*i+1] - y) + y);
+            rep[2*i] = (float)temp;
+        }
+        double temp = (Math.cos(angleRad) * (this.center.x - x) - Math.sin(angleRad)*(this.center.y - y) + x);
+        this.center.y = (Math.sin(angleRad) * (this.center.x - x) + Math.cos(angleRad)*(this.center.y - y) + y);
+        this.center.x = temp;
+    }
+
     public void changeSize(int amount) {
         radius += amount;
-        int numPoints = rep.size();
-        rep.clear();
+        rep = new float[numPoints*2];
         for (int i = 0; i < numPoints; i++) {
             double x_pos = Math.cos(((2.0*Math.PI/numPoints)*i) + rotation)*radius + center.x;
             double y_pos = Math.sin(((2.0*Math.PI/numPoints)*i) + rotation)*radius + center.y;
-            rep.add(new Point((int)x_pos, (int)y_pos));
+            rep[2*i] = (float)x_pos;
+            rep[2*i+1] = (float)y_pos;
         }
     }
 
     public static class Point {
-        public int x, y;
+        public double x, y;
 
-        public Point(int x, int y) {
+        public Point(double x, double y) {
             this.x = x;
             this.y = y;
         }

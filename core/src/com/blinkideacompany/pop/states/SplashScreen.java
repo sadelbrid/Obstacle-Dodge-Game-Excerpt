@@ -22,28 +22,15 @@ public class SplashScreen extends State {
     }
 
     @Override
-    public void draw(ShapeRenderer s) {
-        Texture t=new Texture("badlogic.jpg");
-    }
-
-    @Override
-    public void update(float dt) {
+    public void update(float dt, ShapeRenderer s) {
         timeSinceCreation += dt;
         if(timeSinceCreation > SPLASH_DISPLAY_LENGTH){
             gsm.set(new GameMenu(gsm));
         }
-//        try {
-//            Thread.sleep(2000);
-//            gsm.changeState(new GameMenu());
-//        }
-//        catch(Exception e){
-//
-//        }
-
     }
 
     @Override
-    protected void handleInput(){
+    protected void handleInput(ShapeRenderer s){
 
     }
 

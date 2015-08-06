@@ -23,16 +23,9 @@ public class GameMenu extends State{
         aboutButton = new Texture("aboutButton.png");
     }
 
-    @Override
-    public void draw(ShapeRenderer s) {
-        s.begin(ShapeRenderer.ShapeType.Filled);
-        s.setColor(com.badlogic.gdx.graphics.Color.BLACK);
-        s.circle(100,100,100);
-        s.end();
-    }
 
     @Override
-    protected void handleInput(){
+    protected void handleInput(ShapeRenderer s){
         if(Gdx.input.isTouched()){
             int x = Gdx.input.getX();
             int y = Gdx.input.getY();
@@ -41,22 +34,22 @@ public class GameMenu extends State{
                     y > Gdx.graphics.getHeight()/2 - playButton.getHeight()/2 &&
                     y < Gdx.graphics.getHeight()/2 + playButton.getHeight()/2){
                 //Switch states
-                gsm.set(new InGame(gsm));
+                gsm.set(new InGame(gsm, s));
                 dispose();
             }
         }
     }
 
     @Override
-    public void update(float dt) {
-        handleInput();
+    public void update(float dt, ShapeRenderer s) {
+        handleInput(s);
     }
 
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(playButton, MyGdxGame.WIDTH/2 - playButton.getWidth()/2,
-                MyGdxGame.HEIGHT/2 - playButton.getHeight()/2);
+        sb.draw(playButton, MyGdxGame.WIDTH / 2 - playButton.getWidth() / 2,
+                MyGdxGame.HEIGHT / 2 - playButton.getHeight() / 2);
         sb.end();
     }
 

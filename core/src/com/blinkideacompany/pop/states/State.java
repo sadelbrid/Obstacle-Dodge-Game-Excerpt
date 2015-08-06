@@ -20,9 +20,8 @@ public abstract class State {
         mouse = new Vector3();
     }
 
-    protected abstract void handleInput();
-    public abstract void update(float dt);
+    protected abstract void handleInput(ShapeRenderer s);
+    public abstract void update(float dt, ShapeRenderer s);
     public abstract void render(SpriteBatch sb);
-    public abstract void draw(ShapeRenderer s);
     public abstract void dispose();
 }

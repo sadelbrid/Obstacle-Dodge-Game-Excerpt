@@ -1,13 +1,9 @@
 package com.blinkideacompany.pop.states;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.blinkideacompany.pop.JoyStick;
 import com.blinkideacompany.pop.Player;
 import com.blinkideacompany.pop.obstacles.ObstacleManager;
 import com.mygdx.game.MyGdxGame;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class InGame extends State {
     private boolean gameStarted;
@@ -49,6 +45,46 @@ public class InGame extends State {
     @Override
     public void dispose(){
 
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }
 

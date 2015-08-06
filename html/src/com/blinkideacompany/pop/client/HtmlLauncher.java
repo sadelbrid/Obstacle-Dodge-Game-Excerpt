@@ -3,7 +3,7 @@ package com.blinkideacompany.pop.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.blinkideacompany.pop.MyGdxGame;
+import com.mygdx.game.MyGdxGame;
 
 public class HtmlLauncher extends GwtApplication {
 

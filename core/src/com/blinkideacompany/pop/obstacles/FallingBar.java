@@ -26,7 +26,7 @@ public class FallingBar extends Obstacle {
 
     @Override
     public void draw() {
-        parts.get(0).draw();
+        parts.get(0).draw(s);
     }
 
     int rotatedBy = 0;

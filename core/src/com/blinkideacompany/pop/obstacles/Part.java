@@ -1,5 +1,7 @@
 package com.blinkideacompany.pop.obstacles;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+
 import java.util.ArrayList;
 
 /**
@@ -78,21 +80,23 @@ public class Part {
         }
     }
 
-    public void draw() {
+    public void draw(ShapeRenderer s) {
+
+        float[] vertices={};
+
+
 
 //        path.reset();
-//        if (rep.size() > 1 && rep.size() != 0) {
-//            path.moveTo(rep.get(0).x, rep.get(0).y);
-//            for(int i = 1; i < rep.size(); i++){
-//                path.lineTo(rep.get(i).x, rep.get(i).y);
-//            }
-//            path.lineTo(rep.get(0).x, rep.get(0).y);
-//            path.close();
-//            canvas.drawPath(path, paint);
-//        }
-//        else if(type == TYPE_CIRCLE){
-//            canvas.drawCircle(center.x, center.y, radius, paint);
-//        }
+        if (rep.size() > 1 && rep.size() != 0) {
+            for(int i = 1; i < rep.size(); i++){
+
+                s.line(rep.get(i-1).x, rep.get(i-1).y,rep.get(i).x,rep.get(i).y);
+            }
+        }
+        else if(type == TYPE_CIRCLE){
+
+            s.circle(center.x, center.y, radius);
+        }
 
 
     }

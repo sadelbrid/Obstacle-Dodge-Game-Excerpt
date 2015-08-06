@@ -63,7 +63,7 @@ public class CircleShooter extends Obstacle {
     public void draw() {
         //draw shooters
         for(int i = 0; i< numShooters; i++){
-            parts.get(i).draw();
+            parts.get(i).draw(s);
         }
     }
 }

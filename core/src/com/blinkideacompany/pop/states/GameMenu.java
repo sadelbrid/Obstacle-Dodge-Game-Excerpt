@@ -1,26 +1,26 @@
 package com.blinkideacompany.pop.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.MyGdxGame;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 
 public class GameMenu extends State{
     public boolean gameStarted=false;
     private Texture playButton, aboutButton;
     BitmapFont font;
+    AssetManager asm;
 
     public GameMenu(GameStateManager gsm){
         super(gsm);
+        asm=new AssetManager();
         playButton = new Texture("playButton.png");
         aboutButton = new Texture("aboutButton.png");
+
     }
 
     @Override
@@ -44,6 +44,7 @@ public class GameMenu extends State{
                 gsm.set(new InGame(gsm));
                 dispose();
             }
+            System.out.print("touching");
         }
     }
 

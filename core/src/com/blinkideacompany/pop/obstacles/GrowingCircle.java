@@ -45,7 +45,7 @@ public class GrowingCircle extends Obstacle {
 
     @Override
     public void draw() {
-        parts.get(0).draw();
+        parts.get(0).draw(s);
     }
 
     @Override

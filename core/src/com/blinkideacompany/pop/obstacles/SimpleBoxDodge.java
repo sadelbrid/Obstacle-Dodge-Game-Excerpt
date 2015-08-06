@@ -10,8 +10,6 @@ public class SimpleBoxDodge extends Obstacle {
         super(p, w, h);
         parts.add(new Part(4, (int) (screenWidth * .1), Part.TYPE_POLY, screenWidth / 2, 0));
         parts.add(new Part(4, (int) (screenWidth * .1), Part.TYPE_POLY, screenWidth / 2, screenHeight));
-//        paint.setARGB(255, 255, 0, 0);
-//        paint.setStyle(Paint.Style.FILL);
     }
 
     @Override
@@ -26,11 +24,13 @@ public class SimpleBoxDodge extends Obstacle {
         return parts.get(0).contains(player.x, player.y) || parts.get(1).contains(player.x, player.y);
     }
 
-
     @Override
     public void draw() {
-//        parts.get(0).draw(canvas, paint);
-//        parts.get(1).draw(canvas, paint);
-        
+
+        parts.get(0).draw(s);
+        parts.get(1).draw(s);
+
     }
+
+
 }

@@ -43,7 +43,7 @@ public class Sniper extends Obstacle {
     @Override
     public void draw() {
 
-        parts.get(0).draw();
+        parts.get(0).draw(s);
     }
 
 //    private Point randPoint(Player p) {

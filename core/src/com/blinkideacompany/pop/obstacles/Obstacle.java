@@ -1,5 +1,6 @@
 package com.blinkideacompany.pop.obstacles;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blinkideacompany.pop.Player;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public abstract class Obstacle {
     ArrayList<Part> parts;
     Player player;
+    ShapeRenderer s;
 
     boolean finished;
     int screenWidth;
@@ -20,7 +22,7 @@ public abstract class Obstacle {
         screenWidth = w;
         screenHeight = h;
         parts = new ArrayList<Part>();
-
+        s=new ShapeRenderer();
         finished = false;
     }
 

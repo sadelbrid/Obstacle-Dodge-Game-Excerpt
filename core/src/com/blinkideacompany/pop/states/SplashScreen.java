@@ -1,12 +1,9 @@
 package com.blinkideacompany.pop.states;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
-import java.util.Timer;
 
 public class SplashScreen extends State {
     /** Duration of wait **/
@@ -32,13 +29,6 @@ public class SplashScreen extends State {
         if(timeSinceCreation > SPLASH_DISPLAY_LENGTH){
             gsm.set(new GameMenu(gsm));
         }
-//        try {
-//            Thread.sleep(2000);
-//            gsm.changeState(new GameMenu());
-//        }
-//        catch(Exception e){
-//
-//        }
 
     }
 

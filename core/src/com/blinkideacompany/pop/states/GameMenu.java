@@ -1,7 +1,10 @@
 package com.blinkideacompany.pop.states;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.MyGdxGame;
 
@@ -9,82 +12,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class GameMenu extends State implements InputProcessor{
-
+public class GameMenu extends State{
     public boolean gameStarted=false;
+    private Texture playButton, aboutButton;
     BitmapFont font;
 
-
-
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if(gameStarted){
-            return false;
-        }
-
-        else {
-
-
-            float xTouchPos = screenX;
-            float yTouchPos = screenY;
-
-            //Check to see if first button hit
-            if (xTouchPos >= (MyGdxGame.WIDTH * 2.0 / 5.0) && xTouchPos <= (MyGdxGame.WIDTH * 4.0 / 5.0)
-                    && yTouchPos >= (MyGdxGame.HEIGHT * 6.0 / 10.0) && yTouchPos <= (MyGdxGame.HEIGHT * 7.0 / 10.0)) {
-                //toGameScreen();
-
-            }
-
-            //Check to see if second button hit
-            if (xTouchPos >= (MyGdxGame.WIDTH * 2.0 / 5.0) && xTouchPos <= (MyGdxGame.WIDTH * 4.0 / 5.0)
-                    && yTouchPos >= (MyGdxGame.HEIGHT * 3.0 / 10.0) && yTouchPos <= (MyGdxGame.HEIGHT * 4.0 / 10.0)) {
-
-            }
-
-            if (xTouchPos >= 200 && xTouchPos <= 400 && yTouchPos >= 200 && yTouchPos <= 400) {
-                //toGameScreen();
-                gameStarted=true;
-            }
-
-           
-
-        }
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
+    public GameMenu(GameStateManager gsm){
+        super(gsm);
+        playButton = new Texture("playButton.png");
+        aboutButton = new Texture("aboutButton.png");
     }
 
     @Override
@@ -96,30 +32,37 @@ public class GameMenu extends State implements InputProcessor{
     }
 
     @Override
-    public void update() {
-
+    protected void handleInput(){
+        if(Gdx.input.isTouched()){
+            int x = Gdx.input.getX();
+            int y = Gdx.input.getY();
+            if(x > Gdx.graphics.getWidth()/2 - playButton.getWidth()/2 &&
+                    x < Gdx.graphics.getWidth()/2 + playButton.getWidth()/2 &&
+                    y > Gdx.graphics.getHeight()/2 - playButton.getHeight()/2 &&
+                    y < Gdx.graphics.getHeight()/2 + playButton.getHeight()/2){
+                //Switch states
+                gsm.set(new InGame(gsm));
+                dispose();
+            }
+        }
     }
 
+    @Override
+    public void update(float dt) {
+        handleInput();
+    }
 
-    public class MainScene  {
+    @Override
+    public void render(SpriteBatch sb) {
+        sb.begin();
+        sb.draw(playButton, MyGdxGame.WIDTH/2 - playButton.getWidth()/2,
+                MyGdxGame.HEIGHT/2 - playButton.getHeight()/2);
+        sb.end();
+    }
 
-        Timer logicTimer;
-        TimerTask mainUpdate;
-
-        public MainScene() {
-
-            //Setup timers
-            logicTimer = new Timer();
-            mainUpdate = new TimerTask() {
-                @Override
-                public void run() {
-                    //Main logic update to be done
-                    //...
-                }
-            };
-            logicTimer.schedule(mainUpdate, 0, 20);
-
-        }
-        
+    @Override
+    public void dispose(){
+        playButton.dispose();
+        aboutButton.dispose();
     }
 }

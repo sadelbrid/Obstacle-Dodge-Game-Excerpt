@@ -10,43 +10,50 @@ import java.util.Timer;
 
 public class SplashScreen extends State {
     /** Duration of wait **/
-    private final int SPLASH_DISPLAY_LENGTH = 2000;
-    private Timer t;
-    private GameStateManager gsm;
+    private final float SPLASH_DISPLAY_LENGTH = 2.0f;
     private BitmapFont font;
-    private SpriteBatch batch;
     public ShapeRenderer s;
-
-
-    public SplashScreen() {
-        t=new Timer();
-        //specify custom font from interal files
+    private float timeSinceCreation;
+    public SplashScreen(GameStateManager gsm) {
+        super(gsm);
+        timeSinceCreation = 0;
+        //specify custom font from internal files
         s=new ShapeRenderer();
-        batch = new SpriteBatch();
-        gsm=new GameStateManager();
-
     }
 
     @Override
     public void draw(ShapeRenderer s) {
-
         Texture t=new Texture("badlogic.jpg");
-        batch.begin();
-        batch.draw(t, Gdx.graphics.getWidth()/2-t.getWidth()/2,Gdx.graphics.getHeight()/2-t.getHeight()/2);
-        batch.end();
+    }
 
+    @Override
+    public void update(float dt) {
+        timeSinceCreation += dt;
+        if(timeSinceCreation > SPLASH_DISPLAY_LENGTH){
+            gsm.set(new GameMenu(gsm));
+        }
+//        try {
+//            Thread.sleep(2000);
+//            gsm.changeState(new GameMenu());
+//        }
+//        catch(Exception e){
+//
+//        }
 
     }
 
     @Override
-    public void update() {
-        try {
-            Thread.sleep(2000);
-            gsm.changeState(new GameMenu());
-        }
-        catch(Exception e){
+    protected void handleInput(){
 
-        }
+    }
+
+    @Override
+    public void render(SpriteBatch sb){
+
+    }
+
+    @Override
+    public void dispose(){
 
     }
 }

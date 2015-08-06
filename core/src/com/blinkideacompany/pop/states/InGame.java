@@ -1,4 +1,5 @@
 package com.blinkideacompany.pop.states;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blinkideacompany.pop.Player;
@@ -9,9 +10,13 @@ public class InGame extends State {
     private boolean gameStarted;
     ObstacleManager obstacleManager;
     Player player;
+
     float countdown;
+
     public InGame(GameStateManager gsm) {
         super(gsm);
+        player = new Player(MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
+
         gameStarted = false;
         obstacleManager = new ObstacleManager(player, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
         countdown = 4;
@@ -19,31 +24,31 @@ public class InGame extends State {
 
     @Override
     public void draw(ShapeRenderer s) {
-
+        player.draw(s);
     }
 
     @Override
     public void update(float dt) {
-        if(!gameStarted) countdown -= dt;
+        if (!gameStarted) countdown -= dt;
         gameStarted = countdown < 1.0f;
-        if(gameStarted) {
+        if (gameStarted) {
             player.update();
             obstacleManager.update();
         }
     }
 
     @Override
-    public void handleInput(){
+    public void handleInput() {
 
     }
 
     @Override
-    public void render(SpriteBatch sb){
+    public void render(SpriteBatch sb) {
 
     }
 
     @Override
-    public void dispose(){
+    public void dispose() {
 
     }
 

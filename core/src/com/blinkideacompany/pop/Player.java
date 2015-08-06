@@ -2,6 +2,7 @@ package com.blinkideacompany.pop;
 
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 /**
  * Created by dgallagher on 6/26/15.
@@ -61,6 +62,14 @@ public class Player implements InputProcessor {
                 x_vel *= -1;
             }
         }
+
+    public void draw(ShapeRenderer s){
+        //TODO cannot get the player to display when drawn
+        s.begin(ShapeRenderer.ShapeType.Filled);
+        s.setColor(com.badlogic.gdx.graphics.Color.BLACK);
+        s.circle(x,y,size);
+        s.end();
+    }
 
 
     @Override

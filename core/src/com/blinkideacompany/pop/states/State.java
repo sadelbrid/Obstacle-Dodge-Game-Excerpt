@@ -16,11 +16,12 @@ public abstract class State implements InputProcessor{
     protected OrthographicCamera cam;
     protected Vector3 mouse;
     protected GameStateManager gsm;
-
+    protected ShapeRenderer s;
     protected State(GameStateManager gsm){
         this.gsm = gsm;
         cam = new OrthographicCamera();
         mouse = new Vector3();
+        s=new ShapeRenderer();
         Gdx.input.setInputProcessor(this);
     }
 

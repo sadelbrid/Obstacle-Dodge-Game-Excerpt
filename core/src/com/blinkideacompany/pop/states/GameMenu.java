@@ -1,6 +1,5 @@
 package com.blinkideacompany.pop.states;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -72,16 +71,19 @@ public class GameMenu extends State {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-        int x = screenX;
-        int y = screenY;
-        if (x > Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2 &&
-                x < Gdx.graphics.getWidth() / 2 + playButton.getWidth() / 2 &&
-                y > Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2 &&
-                y < Gdx.graphics.getHeight() / 2 + playButton.getHeight() / 2) {
-            //Switch states
-            gsm.set(new InGame(gsm));
-            dispose();
-        }
+//        int x = screenX;
+//        int y = screenY;
+//        if (x > Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2 &&
+//                x < Gdx.graphics.getWidth() / 2 + playButton.getWidth() / 2 &&
+//                y > Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2 &&
+//                y < Gdx.graphics.getHeight() / 2 + playButton.getHeight() / 2) {
+//            //Switch states
+//            gsm.set(new InGame(gsm));
+//            dispose();
+//        }
+
+        gsm.set(new InGame(gsm));
+        dispose();
 
         return false;
     }

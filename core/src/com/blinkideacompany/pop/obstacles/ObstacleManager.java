@@ -53,6 +53,9 @@ public class ObstacleManager {
             case SIMPLE_BOX_DODGE:
                 newObstacle = new SimpleBoxDodge(player, screenWidth, screenHeight, ongoingObjects);
                 break;
+            case CIRCLE_SHOOTER:
+                newObstacle = new CircleShooter(player, screenWidth, screenHeight, ongoingObjects);
+                break;
 //            case SNIPER:
 //                newObstacle = new Sniper(player, screenWidth, screenHeight, ongoingObjects);
 //                break;
@@ -96,7 +99,8 @@ public class ObstacleManager {
 
     public enum ObstacleType {
         //Declare Obstacle Types Here
-        SIMPLE_BOX_DODGE;
+        SIMPLE_BOX_DODGE,
+        CIRCLE_SHOOTER;
         //SNIPER,
         //GROWING_CIRCLE,
         //FALLING_BAR;

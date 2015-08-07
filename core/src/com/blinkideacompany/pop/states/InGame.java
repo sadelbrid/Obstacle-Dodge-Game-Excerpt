@@ -17,9 +17,9 @@ public class InGame extends State {
         super(gsm);
         shapeRenderer =sr;
         gameStarted = false;
+        player = new Player(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         obstacleManager = new ObstacleManager(player, shapeRenderer, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
         countdown = 4;
-        player = new Player(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     @Override

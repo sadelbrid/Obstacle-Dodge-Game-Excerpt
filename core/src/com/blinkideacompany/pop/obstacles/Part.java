@@ -42,6 +42,7 @@ public class Part {
         }
 
         center = new Point(xAverage/numPoints, yAverage/numPoints);
+        color = new Color();
     }
     public Part(ArrayList<Point> points) {
         rep = new float[points.size()*2];
@@ -58,6 +59,7 @@ public class Part {
             rep[2*i+1] = (float)p.y;
         }
         center = new Point(xAverage/numPoints, yAverage/numPoints);
+        color = new Color();
     }
 
     public void setColor(Color c){
@@ -92,7 +94,7 @@ public class Part {
     }
 
     public void draw(ShapeRenderer s, Color c) {
-        s.begin(ShapeRenderer.ShapeType.Filled);
+        s.begin(ShapeRenderer.ShapeType.Line);
         s.setColor(c);
         if(type != TYPE_CIRCLE) s.polygon(rep);
         else{}

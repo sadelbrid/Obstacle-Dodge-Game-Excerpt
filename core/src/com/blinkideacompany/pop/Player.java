@@ -1,6 +1,7 @@
 package com.blinkideacompany.pop;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
 /**
@@ -11,7 +12,7 @@ public class Player implements InputProcessor {
     public double x_vel, y_vel;
     int screenWidth, screenHeight;
     double screenRatio;
-    JoyStick joyStick;
+    public JoyStick joyStick;
     public Player(int w, int h){
         screenWidth = w;
         screenHeight = h;
@@ -21,6 +22,7 @@ public class Player implements InputProcessor {
         size = (int)(screenWidth*.05);
         screenRatio = (double)screenWidth/(double)screenHeight;
         joyStick = new JoyStick(this, screenWidth, screenHeight);
+        Gdx.input.setInputProcessor(this);
     }
 
     public void update(){

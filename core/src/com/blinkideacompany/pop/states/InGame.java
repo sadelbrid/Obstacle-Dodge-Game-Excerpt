@@ -39,6 +39,14 @@ public class InGame extends State {
     public void render(SpriteBatch sb){
         if(gameStarted){
             obstacleManager.draw(shapeRenderer);
+            //Joystick
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(com.badlogic.gdx.graphics.Color.BLUE);
+            shapeRenderer.circle(player.joyStick.x,player.joyStick.y,player.joyStick.radius);
+            shapeRenderer.end();
+
+
+
         }
     }
 

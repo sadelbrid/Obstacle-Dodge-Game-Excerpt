@@ -1,6 +1,5 @@
 package com.blinkideacompany.pop.obstacles;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blinkideacompany.pop.Player;
 
@@ -73,6 +72,7 @@ public class ObstacleManager {
     }
 
     public void draw(ShapeRenderer s) {
+
         for(int i = 0; i<obstacles.size(); i++){
             obstacles.get(i).draw(s);
         }

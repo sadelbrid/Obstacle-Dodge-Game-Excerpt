@@ -94,12 +94,20 @@ public class Part {
     }
 
     public void draw(ShapeRenderer s, Color c) {
-        s.begin(ShapeRenderer.ShapeType.Line);
+        s.setAutoShapeType(true);
+        s.begin(ShapeRenderer.ShapeType.Filled);
         s.setColor(c);
-        if(type != TYPE_CIRCLE) s.polygon(rep);
-        else{}
+        if(type != TYPE_CIRCLE) {
+            s.polygon(rep);
+        }
+
+
+        else if(type == TYPE_CIRCLE){
+            s.circle((float)center.x, (float)center.y, radius);
+        }
         s.end();
-//        path.reset();
+
+        //        path.reset();
 //        if (rep.size() > 1 && rep.size() != 0) {
 //            path.moveTo(rep.get(0).x, rep.get(0).y);
 //            for(int i = 1; i < rep.size(); i++){
@@ -108,9 +116,6 @@ public class Part {
 //            path.lineTo(rep.get(0).x, rep.get(0).y);
 //            path.close();
 //            canvas.drawPath(path, paint);
-//        }
-//        else if(type == TYPE_CIRCLE){
-//            canvas.drawCircle(center.x, center.y, radius, paint);
 //        }
     }
 

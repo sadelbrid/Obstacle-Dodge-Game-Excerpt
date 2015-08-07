@@ -85,7 +85,7 @@ public class JoyStick implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-
+        //TODO get the joystick to change the direction of movement on touch
 
         return false;
     }

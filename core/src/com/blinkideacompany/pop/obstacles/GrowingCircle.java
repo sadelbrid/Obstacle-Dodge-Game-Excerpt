@@ -1,5 +1,6 @@
 package com.blinkideacompany.pop.obstacles;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blinkideacompany.pop.Player;
 
@@ -14,6 +15,7 @@ public class GrowingCircle extends Obstacle {
         //spawn opposite of the player
         int buffer = 5;
         int xSpawn=0, ySpawn=0;
+        color= Color.CYAN;
 
         //off screen top
         if(p.y<=buffer){
@@ -39,9 +41,7 @@ public class GrowingCircle extends Obstacle {
         }
 
         parts.add(new Part(1, 1, Part.TYPE_CIRCLE, xSpawn, ySpawn));
-//        paint = new Paint();
-//        paint.setColor(Color.BLUE);
-//        paint.setAntiAlias(true);
+
     }
 
     @Override

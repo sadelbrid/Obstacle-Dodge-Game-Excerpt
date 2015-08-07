@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.GridPoint2;
  * Created by dgallagher on 6/26/15.
  */
 public class JoyStick implements InputProcessor {
-    int x, y;
+    public int x, y;
     public int radius;
     int screenWidth, screenHeight;
     int maxSpeed;
@@ -26,11 +26,9 @@ public class JoyStick implements InputProcessor {
         screenWidth = w;
         screenHeight =h;
         x = w/2;
-        y = (int)(h*.8);
-        radius = (int)(h*.1);
-//        paint = new Paint();
-//        paint.setStyle(Paint.Style.STROKE);
-//        paint.setStrokeWidth(10);
+        y = (int)(h*.1);
+        radius = (int)(h*.05);
+
         player = p;
         touching = false;
         maxSpeed = (int)(50*(double)w/(double)h);
@@ -64,8 +62,6 @@ public class JoyStick implements InputProcessor {
     }
 
     public void draw() {
-//        if (touching) paint.setColor(Color.GREEN);
-//        else paint.setColor(Color.RED)
         sh = new ShapeRenderer();
 
         sh.circle(pointTravelTo.x, pointTravelTo.y, 60);
@@ -88,11 +84,17 @@ public class JoyStick implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+
+
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+
+
         return false;
     }
 

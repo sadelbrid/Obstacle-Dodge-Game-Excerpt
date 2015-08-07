@@ -1,6 +1,7 @@
 package com.blinkideacompany.pop.states;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.Stack;
 
@@ -8,10 +9,7 @@ import java.util.Stack;
  * Created by dgallagher on 8/4/15.
  */
 public class GameStateManager {
-
     private Stack<State> states;
-    public int currentStateVal;
-    public State currentState;
 
     public GameStateManager(){
         states = new Stack<State>();
@@ -30,8 +28,8 @@ public class GameStateManager {
         states.push(s);
     }
 
-    public void update(float dt){
-        states.peek().update(dt);
+    public void update(float dt, ShapeRenderer s){
+        states.peek().update(dt, s);
     }
 
     public void render(SpriteBatch batch){

@@ -1,5 +1,6 @@
 package com.blinkideacompany.pop.obstacles;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blinkideacompany.pop.Player;
 
 /**
@@ -8,8 +9,8 @@ import com.blinkideacompany.pop.Player;
 public class GrowingCircle extends Obstacle {
 
 
-    public GrowingCircle(Player p, int w, int h) {
-        super(p, w, h);
+    public GrowingCircle(Player p, int w, int h, Obstacle ongoing) {
+        super(p, w, h, ongoing);
         //spawn opposite of the player
         int buffer = 5;
         int xSpawn=0, ySpawn=0;
@@ -44,12 +45,12 @@ public class GrowingCircle extends Obstacle {
     }
 
     @Override
-    public void draw() {
-        parts.get(0).draw(s);
+    public void draw(ShapeRenderer s) {
+        parts.get(0).draw(s, this.color);
     }
 
     @Override
-    public boolean update() {
+    public boolean update(float dt) {
         parts.get(0).radius += player.size * .20;
         if (parts.get(0).radius >= screenWidth * .85) finished = true;
         return parts.get(0).contains(player.x, player.y);

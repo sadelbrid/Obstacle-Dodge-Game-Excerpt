@@ -1,15 +1,10 @@
 package com.blinkideacompany.pop.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.mygdx.game.MyGdxGame;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class GameMenu extends State{
@@ -48,8 +43,8 @@ public class GameMenu extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(playButton, MyGdxGame.WIDTH / 2 - playButton.getWidth() / 2,
-                MyGdxGame.HEIGHT / 2 - playButton.getHeight() / 2);
+        sb.draw(playButton, Gdx.graphics.getWidth()/ 2 - playButton.getWidth() / 2,
+                Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2);
         sb.end();
     }
 

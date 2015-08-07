@@ -2,10 +2,8 @@ package com.blinkideacompany.pop.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.blinkideacompany.pop.JoyStick;
 import com.blinkideacompany.pop.Player;
 import com.blinkideacompany.pop.obstacles.ObstacleManager;
-import com.mygdx.game.MyGdxGame;
 
 public class InGame extends State {
     private boolean gameStarted;
@@ -18,7 +16,7 @@ public class InGame extends State {
         shapeRenderer =sr;
         gameStarted = false;
         player = new Player(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        obstacleManager = new ObstacleManager(player, shapeRenderer, MyGdxGame.WIDTH, MyGdxGame.HEIGHT);
+        obstacleManager = new ObstacleManager(player, shapeRenderer, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         countdown = 4;
     }
 

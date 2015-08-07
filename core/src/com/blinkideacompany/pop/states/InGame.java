@@ -1,5 +1,6 @@
 package com.blinkideacompany.pop.states;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blinkideacompany.pop.Player;
@@ -42,7 +43,9 @@ public class InGame extends State {
             //Joystick
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor(com.badlogic.gdx.graphics.Color.BLUE);
-            shapeRenderer.circle(player.joyStick.x,player.joyStick.y,player.joyStick.radius);
+            shapeRenderer.circle(player.joyStick.x, player.joyStick.y, player.joyStick.radius);
+            shapeRenderer.setColor(Color.BLACK);
+            shapeRenderer.circle(player.x,player.y,player.size);
             shapeRenderer.end();
 
 

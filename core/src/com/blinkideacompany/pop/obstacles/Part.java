@@ -13,12 +13,12 @@ public class Part {
     public static final int TYPE_POLY = 1;
     public static final int TYPE_CUSTOM = 2;
 
-    public int radius;
+    public float radius;
     public int type;
     public double rotation;
     public float[] rep;
     int numPoints;
-    double x_vel, y_vel;
+    float x_vel, y_vel;
     Point center;
     public Color color;
 
@@ -84,7 +84,7 @@ public class Part {
         }
     }
 
-    public void update() {
+    public void update(float dt) {
         center.x += x_vel;
         center.y += y_vel;
         for(int i = 0; i < numPoints; i++){
@@ -100,23 +100,10 @@ public class Part {
         if(type != TYPE_CIRCLE) {
             s.polygon(rep);
         }
-
-
-        else if(type == TYPE_CIRCLE){
+        else{
             s.circle((float)center.x, (float)center.y, radius);
         }
         s.end();
-
-        //        path.reset();
-//        if (rep.size() > 1 && rep.size() != 0) {
-//            path.moveTo(rep.get(0).x, rep.get(0).y);
-//            for(int i = 1; i < rep.size(); i++){
-//                path.lineTo(rep.get(i).x, rep.get(i).y);
-//            }
-//            path.lineTo(rep.get(0).x, rep.get(0).y);
-//            path.close();
-//            canvas.drawPath(path, paint);
-//        }
     }
 
     public void translateX(int dX) {
@@ -165,7 +152,7 @@ public class Part {
 
     public void rotateAboutPoint(double x, double y, double angleRad){
         rotation += angleRad;
-        if(rotation >= Math.PI*4) rotation -= Math.PI*4;
+        if(rotation >= Math.PI*100) rotation -= Math.PI*100;
         for(int i = 0; i<numPoints; i++){
             double temp = (Math.cos(angleRad) * (rep[2*i] - x) - Math.sin(angleRad)*(rep[2*i+1] - y) + x);
             rep[2*i+1] = (float)(Math.sin(angleRad) * (rep[2*i] - x) + Math.cos(angleRad)*(rep[2*i+1] - y) + y);
@@ -176,7 +163,7 @@ public class Part {
         this.center.x = temp;
     }
 
-    public void changeSize(int amount) {
+    public void changeSize(float amount) {
         radius += amount;
         rep = new float[numPoints*2];
         for (int i = 0; i < numPoints; i++) {

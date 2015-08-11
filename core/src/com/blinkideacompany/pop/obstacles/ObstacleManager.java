@@ -22,7 +22,7 @@ public class ObstacleManager {
             @Override
             public boolean update(float dt) {
                 for(int i = 0; i<parts.size(); i++){
-                    parts.get(i).update();
+                    parts.get(i).update(dt);
                     if(parts.get(i).center.x < 0 ||parts.get(i).center.x > screenWidth
                             || parts.get(i).center.y < 0 || parts.get(i).center.y > screenHeight){
                         parts.remove(i--);
@@ -49,18 +49,18 @@ public class ObstacleManager {
         ObstacleType randObstacleType = ObstacleType.getRandomObstacleType();
         Obstacle newObstacle;
         switch (randObstacleType){
-            case SIMPLE_BOX_DODGE:
-                newObstacle = new SimpleBoxDodge(player, screenWidth, screenHeight, ongoingObjects);
-                break;
+//            case SIMPLE_BOX_DODGE:
+//                newObstacle = new SimpleBoxDodge(player, screenWidth, screenHeight, ongoingObjects);
+//                break;
             case CIRCLE_SHOOTER:
                 newObstacle = new CircleShooter(player, screenWidth, screenHeight, ongoingObjects);
                 break;
 //            case SNIPER:
 //                newObstacle = new Sniper(player, screenWidth, screenHeight, ongoingObjects);
 //                break;
-            case GROWING_CIRCLE:
-                newObstacle=new GrowingCircle(player, screenWidth, screenHeight, ongoingObjects);
-                break;
+//            case GROWING_CIRCLE:
+//                newObstacle=new GrowingCircle(player, screenWidth, screenHeight, ongoingObjects);
+//                break;
 
 //            case FALLING_BAR:
 //                newObstacle=new FallingBar(player, screenWidth, screenHeight, ongoingObjects);
@@ -76,9 +76,17 @@ public class ObstacleManager {
         for(int i = 0; i<obstacles.size(); i++){
             obstacles.get(i).draw(s);
         }
+        //draw ongoing objects
+        for(int i = 0; i<ongoingObjects.parts.size(); i++){
+            ongoingObjects.parts.get(i).draw(s, ongoingObjects.parts.get(i).color);
+        }
     }
 
     public void update(float dt) {
+        //Update ongoingobjects
+        for(int i = 0; i<ongoingObjects.parts.size(); i++){
+            ongoingObjects.parts.get(i).update(dt);
+        }
         if(readyToAdd && obstacles.size() < 3){
             addNewObstacle();
             readyToAdd = false;
@@ -99,10 +107,10 @@ public class ObstacleManager {
 
     public enum ObstacleType {
         //Declare Obstacle Types Here
-        SIMPLE_BOX_DODGE,
-        CIRCLE_SHOOTER,
+        //SIMPLE_BOX_DODGE,
+        CIRCLE_SHOOTER;
         //SNIPER,
-        GROWING_CIRCLE;
+        //GROWING_CIRCLE;
         //FALLING_BAR;
         private static final ObstacleType[] VALUES = values();
         private static final int SIZE = VALUES.length;

@@ -55,6 +55,4 @@ public class GrowingCircle extends Obstacle {
         if (parts.get(0).radius >= screenWidth * .85) finished = true;
         return parts.get(0).contains(player.x, player.y);
     }
-
-
 }

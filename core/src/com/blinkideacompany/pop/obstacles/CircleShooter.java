@@ -12,6 +12,8 @@ public class CircleShooter extends Obstacle{
     int activeShooter;
     int bulletSpeed;
     float timerTemp;
+    float rotation = 5f;
+    float growth = 15f;
     public CircleShooter(Player p, int w, int h, Obstacle ongoing) {
         super(p, w, h, ongoing);
         readyToShoot = false;
@@ -37,15 +39,15 @@ public class CircleShooter extends Obstacle{
         for(int i = 0; i<numShooters; i++){
             parts.get(i).x_vel = player.x_vel;
             parts.get(i).y_vel = player.y_vel;
-            parts.get(i).update();
+            parts.get(i).update(dt);
         }
 
         if(!readyToShoot){
             readyToShoot = true;
             for(int i = 0; i<numShooters; i++){
-                parts.get(i).changeSize(1);
+                parts.get(i).changeSize(growth*dt);
                 if(parts.get(i).rotation < (i+3)*Math.PI/3){
-                    parts.get(i).rotate(.2);
+                    parts.get(i).rotate(rotation*dt);
                     readyToShoot = false;
                 }
             }
@@ -55,16 +57,16 @@ public class CircleShooter extends Obstacle{
             if(!finishing) {
                 //Update shooters
                 for (int i = 0; i < numShooters; i++) {
-                    parts.get(i).rotateAboutPoint(player.x, player.y, .05);
+                    parts.get(i).rotateAboutPoint(player.x, player.y, 2*dt);
                 }
                 //shoot
                 timerTemp = (timerTemp > .25) ? shoot() : timerTemp + dt;
             }
             else{
                 for(int i = 0; i<numShooters; i++){
-                    parts.get(i).changeSize(-1);
-                    parts.get(i).rotate(.2);
-                    if(parts.get(i).radius == 0) finished=true;
+                    parts.get(i).changeSize(-growth*dt);
+                    parts.get(i).rotate(rotation*dt);
+                    if(parts.get(i).radius <= 0) finished=true;
                 }
             }
             for(int i = 0; i < ongoingObjects.parts.size(); i++)

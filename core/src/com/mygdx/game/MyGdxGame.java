@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.blinkideacompany.pop.states.GameStateManager;
+import com.blinkideacompany.pop.states.InGame;
 import com.blinkideacompany.pop.states.SplashScreen;
 
 public class MyGdxGame extends ApplicationAdapter {
@@ -21,7 +22,7 @@ public class MyGdxGame extends ApplicationAdapter {
 		shapeRenderer = new ShapeRenderer();
 		gsm = new GameStateManager();
 		s=new ShapeRenderer();
-		gsm.push(new SplashScreen(gsm));
+		gsm.push(new InGame(gsm, shapeRenderer));
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 
 	}

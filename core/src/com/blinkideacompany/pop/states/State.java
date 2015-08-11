@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector3;
  * Created by dgallagher on 8/4/15.
  */
 public abstract class State implements InputProcessor{
-
     public String name;
     protected OrthographicCamera cam;
     protected Vector3 mouse;

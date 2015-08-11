@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
  */
 public class Player implements InputProcessor {
     public int x, y, size;
-    public double x_vel, y_vel;
+    public float x_vel, y_vel;
     int screenWidth, screenHeight;
     double screenRatio;
     public JoyStick joyStick;
@@ -25,6 +25,7 @@ public class Player implements InputProcessor {
         joyStick = new JoyStick(this, screenWidth, screenHeight);
         Gdx.input.setInputProcessor(this);
     }
+
 
     public void update(){
         if(joyStick.touching && Math.sqrt(Math.pow(x_vel, 2) + Math.pow(y_vel, 2)) < joyStick.maxSpeed){

@@ -36,8 +36,8 @@ public class GrowingCircle extends Obstacle {
 
         else{
             //spawn in opposite position
-            xSpawn=p.y;
-            ySpawn=p.x;
+            xSpawn=(int)p.y;
+            ySpawn=(int)p.x;
         }
 
         parts.add(new Part(1, 1, Part.TYPE_CIRCLE, xSpawn, ySpawn));

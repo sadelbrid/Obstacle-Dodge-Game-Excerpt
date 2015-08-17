@@ -14,11 +14,11 @@ public class InGame extends State {
     float countdown;
     public InGame(GameStateManager gsm, ShapeRenderer sr) {
         super(gsm);
-        shapeRenderer =sr;
+        shapeRenderer = sr;
         gameStarted = false;
         player = new Player(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         obstacleManager = new ObstacleManager(player, shapeRenderer, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        countdown = 4;
+        countdown = 0f;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class InGame extends State {
         if(!gameStarted) countdown -= dt;
         gameStarted = countdown < 1.0f;
         if(gameStarted) {
-            player.update();
+            player.update(dt);
             obstacleManager.update(dt);
         }
     }
@@ -40,16 +40,8 @@ public class InGame extends State {
     public void render(SpriteBatch sb){
         if(gameStarted){
             obstacleManager.draw(shapeRenderer);
-            //Joystick
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(com.badlogic.gdx.graphics.Color.BLUE);
-            shapeRenderer.circle(player.joyStick.x, player.joyStick.y, player.joyStick.radius);
-            shapeRenderer.setColor(Color.BLACK);
-            shapeRenderer.circle(player.x,player.y,player.size);
-            shapeRenderer.end();
-
-
-
+            player.draw(shapeRenderer);
+            player.joyStick.draw(shapeRenderer);
         }
     }
 

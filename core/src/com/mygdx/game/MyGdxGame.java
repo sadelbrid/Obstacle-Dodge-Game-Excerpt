@@ -14,6 +14,8 @@ public class MyGdxGame extends ApplicationAdapter {
 	private ShapeRenderer shapeRenderer;
 	public ShapeRenderer s;
 	private GameStateManager gsm;
+	public static final int DESKTOP_WIDTH = 300;
+	public static final int DESKTOP_HEIGHT = 600;
 
 
 	@Override

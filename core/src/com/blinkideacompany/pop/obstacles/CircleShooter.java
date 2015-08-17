@@ -13,20 +13,20 @@ public class CircleShooter extends Obstacle{
     int bulletSpeed;
     float timerTemp;
     float rotation = 5f;
-    float growth = 15f;
+    float growth = 10f;
     public CircleShooter(Player p, int w, int h, Obstacle ongoing) {
         super(p, w, h, ongoing);
         readyToShoot = false;
         int distanceFromPlayer = (int)(screenWidth * .3);
         numShooters = 6;
         activeShooter = 0;
-        bulletSpeed = 10;
+        bulletSpeed = 100;
         timerTemp = 0;
         finishing = false;
         //Add shooters
         for(int i = 0; i < numShooters; i++){
-            int x = (int)(Math.cos((2*Math.PI/numShooters)*i)*distanceFromPlayer) + player.x;
-            int y = (int)(Math.sin((2*Math.PI/numShooters)*i)*distanceFromPlayer) + player.y;
+            float x = (int)(Math.cos((2*Math.PI/numShooters)*i)*distanceFromPlayer) + player.x;
+            float y = (int)(Math.sin((2*Math.PI/numShooters)*i)*distanceFromPlayer) + player.y;
             parts.add(new Part(3, 0, Part.TYPE_POLY, x, y));
         }
         color.set(1,0,0,1);
@@ -37,9 +37,7 @@ public class CircleShooter extends Obstacle{
         boolean isHit = false;
         //Track player
         for(int i = 0; i<numShooters; i++){
-            parts.get(i).x_vel = player.x_vel;
-            parts.get(i).y_vel = player.y_vel;
-            parts.get(i).update(dt);
+            parts.get(i).translateXY(player.x_vel*dt, player.y_vel*dt);
         }
 
         if(!readyToShoot){
@@ -69,11 +67,15 @@ public class CircleShooter extends Obstacle{
                     if(parts.get(i).radius <= 0) finished=true;
                 }
             }
-            for(int i = 0; i < ongoingObjects.parts.size(); i++)
-                if(ongoingObjects.parts.get(i).contains(player.x, player.y)){
+            for(int i = 0; i < ongoingObjects.parts.size(); i++) {
+                double partX = ongoingObjects.parts.get(i).center.x;
+                double partY = ongoingObjects.parts.get(i).center.y;
+
+                if (Math.sqrt(Math.pow(player.x - partX, 2) + Math.pow(player.y - partY, 2)) < player.size) {
                     isHit = true;
                     break;
                 }
+            }
         }
         return isHit;
     }

@@ -1,5 +1,6 @@
 package com.blinkideacompany.pop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.GridPoint2;
@@ -19,19 +20,15 @@ public class JoyStick implements InputProcessor {
     GridPoint2 pointTravelTo;
     double cornerAngleRightTop, cornerAngleLeftTop, cornerAngleLeftBottom, cornerAngleRightBottom;
 
-    ShapeRenderer sh;
-
     public JoyStick(Player p, int w, int h){
-
         screenWidth = w;
-        screenHeight =h;
+        screenHeight = h;
         x = w/2;
         y = (int)(h*.1);
         radius = (int)(h*.05);
-
         player = p;
         touching = false;
-        maxSpeed = (int)(50*(double)w/(double)h);
+        maxSpeed = (int)(250*(double)w/(double)h);
         acceleration = 1;
         angle = 0;
         pointTravelTo = new GridPoint2(0, 0);
@@ -40,7 +37,6 @@ public class JoyStick implements InputProcessor {
         cornerAngleLeftBottom = 2*Math.PI  - Math.atan2(screenHeight-y, -x);
         cornerAngleRightBottom = 2*Math.PI - Math.atan2(screenHeight-y, x);
     }
-
 
     public void calculateTravelPoint(){
         if(angle > cornerAngleRightBottom || angle < cornerAngleRightTop){ //right
@@ -61,10 +57,12 @@ public class JoyStick implements InputProcessor {
         }
     }
 
-    public void draw() {
-        sh = new ShapeRenderer();
-
-        sh.circle(pointTravelTo.x, pointTravelTo.y, 60);
+    public void draw(ShapeRenderer sr) {
+        sr.begin();
+        sr.set(ShapeRenderer.ShapeType.Line);
+        sr.setColor(0.0f,0.0f, 1.0f, 1.0f);
+        sr.circle(x, y, radius);
+        sr.end();
     }
 
     @Override
@@ -84,22 +82,43 @@ public class JoyStick implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
-        //TODO get the joystick to change the direction of movement on touch
-
+        //flip y touch
+        screenY = screenHeight - screenY;
+        double deltaX = screenX - x;
+        double deltaY = screenY - y;
+        if (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) > screenWidth * .05) {
+            touching = true;
+            angle = Math.atan2(deltaY, deltaX);
+            if (screenY < y) {
+                angle *= -1;
+                angle = 2*Math.PI - angle;
+            }
+            //calculateTravelPoint();
+        } else touching = false;
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-
-
-
+        touching = false;
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
+        //flip y touch
+        screenY = screenHeight - screenY;
+        double deltaX = screenX - x;
+        double deltaY = screenY - y;
+        if (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) > screenWidth * .05) {
+            touching = true;
+            angle = Math.atan2(deltaY, deltaX);
+            if (screenY < y) {
+                angle *= -1;
+                angle = 2*Math.PI - angle;
+            }
+            //calculateTravelPoint();
+        } else touching = false;
         return false;
     }
 

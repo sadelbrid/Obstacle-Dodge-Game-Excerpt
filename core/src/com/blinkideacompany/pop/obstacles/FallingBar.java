@@ -32,7 +32,7 @@ public class FallingBar extends Obstacle {
     @Override
     public boolean update(float dt) {
 
-        parts.get(0).rotate(Math.PI/2);
+        parts.get(0).rotate((float)(Math.PI/2));
 
         if (rotatedBy == 90) finished = true;
 

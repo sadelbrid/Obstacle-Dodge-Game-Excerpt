@@ -66,7 +66,7 @@ public class Part {
         this.color.set(c);
     }
 
-    public boolean contains(int x, int y) {
+    public boolean contains(float x, float y) {
         if(this.type != TYPE_CIRCLE) {
             int i, j, count = 0;
             for (i = 0, j = numPoints - 1; i < numPoints; j = i++) {
@@ -85,11 +85,11 @@ public class Part {
     }
 
     public void update(float dt) {
-        center.x += x_vel;
-        center.y += y_vel;
+        center.x += x_vel*dt;
+        center.y += y_vel*dt;
         for(int i = 0; i < numPoints; i++){
-            rep[2*i] += x_vel;
-            rep[2*i+1] += y_vel;
+            rep[2*i] += x_vel*dt;
+            rep[2*i+1] += y_vel*dt;
         }
     }
 
@@ -106,7 +106,7 @@ public class Part {
         s.end();
     }
 
-    public void translateX(int dX) {
+    public void translateX(float dX) {
         center.x += dX;
         for (int i = 0; i < numPoints; i++)
             rep[2*i] += dX;
@@ -116,13 +116,13 @@ public class Part {
     Translation methods
      */
 
-    public void translateY(int dY){
+    public void translateY(float dY){
         center.y += dY;
         for(int i = 0; i < numPoints; i++)
             rep[2*i+1] += dY;
     }
 
-    public void translateXY(int dX, int dY){
+    public void translateXY(float dX, float dY){
         for(int i = 0; i < numPoints; i++) {
             rep[2*i] += dX;
             rep[2*i+1] += dY;
@@ -131,7 +131,7 @@ public class Part {
         center.y += dY;
     }
 
-    public void translateByAngle(double angleRad, int amount){
+    public void translateByAngle(double angleRad, float amount){
         /*
         sin(angle) = dY/amount;
         cos(angle) = dX/amount;
@@ -146,7 +146,7 @@ public class Part {
         center.y += dY;
     }
 
-    public void rotate(double angleRad) {
+    public void rotate(float angleRad) {
         rotateAboutPoint(this.center.x, this.center.y, angleRad);
     }
 

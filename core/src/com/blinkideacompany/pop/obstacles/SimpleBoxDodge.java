@@ -19,10 +19,10 @@ public class SimpleBoxDodge extends Obstacle {
     public boolean update(float dt){
         parts.get(0).translateY((int) (screenHeight * .01));
         parts.get(0).changeSize(2);
-        parts.get(0).rotate(-.05);
+        parts.get(0).rotate(-.05f);
         parts.get(1).translateY(-(int) (screenHeight * .01));
         parts.get(1).changeSize(2);
-        parts.get(1).rotate(.05);
+        parts.get(1).rotate(.05f);
         if(parts.get(0).center.y > screenHeight/2 && parts.get(1).center.y < screenHeight/2) finished = true;
         return parts
                 .get(0)

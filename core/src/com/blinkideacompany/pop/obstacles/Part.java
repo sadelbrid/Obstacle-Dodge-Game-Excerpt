@@ -1,8 +1,6 @@
 package com.blinkideacompany.pop.obstacles;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
 import java.util.ArrayList;
 
 /**
@@ -95,10 +93,19 @@ public class Part {
 
     public void draw(ShapeRenderer s, Color c) {
         s.setAutoShapeType(true);
-        s.begin(ShapeRenderer.ShapeType.Filled);
+        s.begin(ShapeRenderer.ShapeType.Line);
         s.setColor(c);
         if(type != TYPE_CIRCLE) {
             s.polygon(rep);
+            //Draw with triangles
+            for(int i = 0; i < numPoints; i++){
+                if(i < numPoints-1){
+                    s.triangle((float)center.x, (float)center.y, rep[2*i], rep[2*i+1], rep[2*i+2], rep[2*i+3]);
+                }
+                else{
+                    s.triangle((float)center.x, (float)center.y, rep[2*i], rep[2 * i + 1], rep[0], rep[1]);
+                }
+            }
         }
         else{
             s.circle((float)center.x, (float)center.y, radius);
